@@ -111,6 +111,37 @@ app.delete('/api/deletefood/:userid/:index', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   });
+  app.post("/api/drankwater/:userid" , async(req,res) =>{
+    try{
+        const user = await User.findById(req.params.userid);
+        user.CurrentWater = req.body.currentWater;
+        user.save()
+        res.json({message:"Başarılı"})
+    }
+    catch(error){
+        console.log(error);
+    }
+  })
+  app.post("/api/totalwater/:userid" , async(req,res) =>{
+    try{
+        const user = await User.findById(req.params.userid);
+        user.TotalWater = req.body.totalWater;
+        user.save()
+        res.json({message:"Başarılı"})
+    }
+    catch(error){
+        console.log(error);
+    }
+  })
+  app.get('/api/waterinfo/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+  
+    res.json({
+      currentWater: user?.CurrentWater ?? 0,
+      totalWater: user?.TotalWater ?? 0
+    });
+  });
 app.listen(PORT, () => {
   console.log(`Sunucu çalışıyor: http://localhost:${PORT}`);
 });

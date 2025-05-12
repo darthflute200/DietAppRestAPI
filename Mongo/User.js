@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema({
       name: String,
       energy: String
     }],
+  },
+  TotalWater:{
+    type:Number,
+  },
+  CurrentWater:{
+    type:Number,
   }
 });
 
